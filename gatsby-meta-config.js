@@ -2,8 +2,8 @@ module.exports = {
   title: `DG Kim`,
   description: `공부한 것을 기록하는 블로그`,
   author: `김도국(DG)`,
-  introduction: `안녕하세요, 공부한 것을 기록하고 공유하는 걸 좋아하는 프론트엔드 개발자 김도국입니다.`,
-  siteUrl: `https://ecstatic-spence-f3f099.netlify.app/`, // Your blog site url
+  introduction: `안녕하세요, 공부한 것을 기록하고 공유하는 것을 좋아하는 프론트엔드 개발자 김도국입니다.`,
+  siteUrl: `https://https://idea-dg.me/`, // Your blog site url
   social: {
     twitter: ``, // Your Twitter account
     github: `DoGukKim`, // Your GitHub account
@@ -12,7 +12,7 @@ module.exports = {
     linkedin: ``, // Your LinkedIn account
     resume: `about`,
   },
-  icon: `content/assets/felog.png`, // Add your favicon
+  icon: `content/assets/profile.jpg`, // Add your favicon
   keywords: [`frontend`, `react`, `javascript`, 'flutter', 'next.js', 'mobx',],
   comment: {
     disqusShortName: '', // Your disqus-short-name. check disqus.com.
