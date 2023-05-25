@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 
 import { fontSans } from "@/lib/fonts";
+import ThemeProvider from "@/components/theme-provider";
 
 export const metadata = {
   title: "Create Next App",
@@ -13,8 +14,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko" className={fontSans.variable}>
-      <body>{children}</body>
+    <html lang="ko" className={fontSans.variable} suppressHydrationWarning>
+      <body>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
