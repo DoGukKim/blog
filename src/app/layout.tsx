@@ -2,6 +2,7 @@ import '@/styles/globals.css'
 
 import { fontSans } from '@/lib/fonts'
 import ThemeProvider from '@/components/theme-provider'
+import Link from 'next/link'
 
 export const metadata = {
   title: {
@@ -20,6 +21,10 @@ export default function RootLayout({
     <html lang="ko" className={fontSans.variable} suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Link href="/" className="mr-3">
+            to home
+          </Link>
+          <Link href="/blog">to blog</Link>
           {children}
         </ThemeProvider>
       </body>
