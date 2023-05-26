@@ -1,8 +1,10 @@
 import '@/styles/globals.css'
 
 import { fontSans } from '@/lib/fonts'
+
+import GlobalNav from '@/components/global-nav'
 import ThemeProvider from '@/components/theme-provider'
-import Link from 'next/link'
+import TailwindIndicator from '@/components/tailwind-indicator'
 
 export const metadata = {
   title: {
@@ -19,13 +21,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={fontSans.variable} suppressHydrationWarning>
-      <body>
+      <body className="mx-auto max-w-3xl px-6 antialiased lg:max-w-6xl lg:px-8">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Link href="/" className="mr-3">
-            to home
-          </Link>
-          <Link href="/blog">to blog</Link>
+          <GlobalNav />
           {children}
+          <TailwindIndicator />
         </ThemeProvider>
       </body>
     </html>
