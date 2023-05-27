@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={fontSans.variable} suppressHydrationWarning>
-      <body className="mx-auto max-w-3xl px-6 antialiased lg:max-w-6xl lg:px-8">
+      <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <GlobalNav />
           {children}

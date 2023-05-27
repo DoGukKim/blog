@@ -9,8 +9,6 @@ export default async function BlogPage() {
 
   return (
     <main>
-      blog page
-      <h3>all posts</h3>
       <div className="flex flex-col">
         {posts.map((post) => (
           <Link key={post.frontmatter.title} href={`blog/${post.slug}`}>
