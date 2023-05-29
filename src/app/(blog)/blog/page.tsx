@@ -1,18 +1,22 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-import { getAllPosts } from '@/lib/get-post'
+import { getAllBlogPosts } from '@/lib/get-post'
 
 export default async function BlogPage() {
-  const posts = await getAllPosts()
+  const posts = await getAllBlogPosts()
   if (!posts) return notFound()
 
   return (
     <main>
       <div className="flex flex-col">
         {posts.map((post) => (
-          <Link key={post.frontmatter.title} href={`blog/${post.slug}`}>
-            {post.frontmatter.title}
+          <Link
+            key={post.title}
+            as={`blog/${post.slug}`}
+            href={`blog/${post.slug}`}
+          >
+            {post.title}
           </Link>
         ))}
       </div>

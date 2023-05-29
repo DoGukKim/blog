@@ -1,37 +1,47 @@
+import fs from 'fs/promises'
 import { cache } from 'react'
-import { promises as fs } from 'fs'
-import { compileMDX } from 'next-mdx-remote/rsc'
 
-export const getAllPosts = cache(async () => {
-  const postsDir = await fs.readdir(`${process.cwd()}/content/posts`)
+import matter from 'gray-matter'
 
-  const posts = await Promise.all(
-    postsDir.map(async (file) => {
-      const postContent = await fs.readFile(
-        `${process.cwd()}/content/posts/${file}`,
-        'utf8'
-      )
+const ROOT_DIR = `${process.cwd()}/posts`
 
-      const { content, frontmatter } = await compileMDX<Post>({
-        source: postContent,
-        options: { parseFrontmatter: true },
-      })
+export const getAllFiles = async (path: string, files: Post[] = []) => {
+  const curDir = await fs.readdir(path)
 
-      // TODO: 데이터 가공 다시하기, matter 사용해서 MDXRemote랑 분리하기
-      return { content, frontmatter, slug: file.replace(/\d+-|\.mdx/g, '') }
-    })
-  )
+  for (const i of curDir) {
+    const subPath = `${path}/${i}`
+    const subDir = await fs.stat(subPath)
+
+    if (!subDir.isDirectory()) {
+      const file = await fs.readFile(subPath, 'utf-8')
+      const { data, content } = matter(file)
+      const frontmatter = { ...data } as Frontmatter
+      if (!frontmatter.publish) continue
+
+      const slug = `${frontmatter.segments.join('/')}/${i.replace(
+        /\d+-|\.mdx/g,
+        ''
+      )}`
+      const post: Post = { ...frontmatter, content, slug }
+      files.push(post)
+      continue
+    }
+
+    await getAllFiles(subPath, files)
+  }
+
+  return files
+}
+
+export const getAllBlogPosts = cache(async () => {
+  const path = `${ROOT_DIR}/blog`
+  const posts = await getAllFiles(path)
 
   return posts.sort((a, b) =>
-    a && b
-      ? new Date(b.frontmatter.date).getTime() -
-        new Date(a.frontmatter.date).getTime()
-      : 0
+    a && b ? new Date(b.date).getTime() - new Date(a.date).getTime() : 0
   )
 })
 
-export const getPost = async (slug: string) => {
-  const posts = await getAllPosts()
-
-  return posts.find((post) => post.slug === slug)
+export const getPost = async () => {
+  // const post = await getAllBlogPosts()
 }
