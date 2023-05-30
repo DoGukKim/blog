@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-import { getAllBlogPosts } from '@/lib/get-post'
+import { getAllPostsBy } from '@/lib/get-post'
 
 export default async function BlogPage() {
-  const posts = await getAllBlogPosts()
+  const posts = await getAllPostsBy('blog')
   if (!posts) return notFound()
 
   return (

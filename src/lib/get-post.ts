@@ -5,7 +5,11 @@ import matter from 'gray-matter'
 
 const ROOT_DIR = `${process.cwd()}/posts`
 
-export const getAllFiles = async (path: string, files: Post[] = []) => {
+export const getAllFiles = async (
+  path: string,
+  files: Post[] = [],
+  prevPaths: string[] = []
+) => {
   const curDir = await fs.readdir(path)
 
   for (const i of curDir) {
@@ -18,30 +22,37 @@ export const getAllFiles = async (path: string, files: Post[] = []) => {
       const frontmatter = { ...data } as Frontmatter
       if (!frontmatter.publish) continue
 
-      const slug = `${frontmatter.segments.join('/')}/${i.replace(
-        /\d+-|\.mdx/g,
-        ''
-      )}`
+      const slug = `${prevPaths.join('/')}/${i.replace(/\d+-|\.mdx/g, '')}`
+
       const post: Post = { ...frontmatter, content, slug }
       files.push(post)
       continue
     }
 
-    await getAllFiles(subPath, files)
+    prevPaths.push(i)
+    await getAllFiles(subPath, files, prevPaths)
+    prevPaths.pop()
   }
 
   return files
 }
 
-export const getAllBlogPosts = cache(async () => {
-  const path = `${ROOT_DIR}/blog`
-  const posts = await getAllFiles(path)
-
+export const sortPostByDateTime = (posts: Post[]) => {
   return posts.sort((a, b) =>
     a && b ? new Date(b.date).getTime() - new Date(a.date).getTime() : 0
   )
+}
+
+export const getAllPostsBy = cache(async (type: PostType) => {
+  const path = `${ROOT_DIR}/${type}`
+  const posts = await getAllFiles(path)
+  return sortPostByDateTime(posts)
 })
 
-export const getPost = async () => {
-  // const post = await getAllBlogPosts()
+export const getPostBy = async (type: PostType, slug: Post['slug']) => {
+  const posts = await getAllPostsBy(type)
+  console.log(slug)
+
+  // TODO: find by slug
+  return posts
 }
