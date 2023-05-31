@@ -1,10 +1,6 @@
 import Github from './github'
 
-export type IconProps = React.ComponentPropsWithRef<'svg'> & {
-  as?: keyof typeof iconMap
-}
-
-const iconMap = {
+const iconMap: IconMap = {
   github: (props: IconProps) => Github(props),
 }
 

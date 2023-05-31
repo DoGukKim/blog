@@ -1,8 +1,6 @@
-import { type IconProps } from '.'
-
 export default function Github({ ...props }: IconProps) {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
+    <svg viewBox="0 0 24 24" {...props}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"
