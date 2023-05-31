@@ -4,7 +4,6 @@ import { Fragment } from 'react'
 import { useTheme } from 'next-themes'
 import { Menu, Transition } from '@headlessui/react'
 
-import { Icons } from './icon'
 import { Button } from './ui/button'
 
 export default function ThemeToggle() {
@@ -13,9 +12,7 @@ export default function ThemeToggle() {
   return (
     <div>
       <Menu as="div" className="relative outline-none">
-        <Menu.Button className="h-9 items-center justify-center rounded-md px-2 outline-none transition-colors hover:bg-slate-100 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-transparent dark:text-slate-100 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 dark:data-[state=open]:bg-transparent">
-          <Icons.Moon />
-        </Menu.Button>
+        <Menu.Button className="h-9 items-center justify-center rounded-md px-2 outline-none transition-colors hover:bg-slate-100 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-transparent dark:text-slate-100 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 dark:data-[state=open]:bg-transparent"></Menu.Button>
         <Transition
           as={Fragment}
           enter="transition ease-out duration-100"
@@ -31,7 +28,6 @@ export default function ThemeToggle() {
                 onClick={() => setTheme('light')}
                 className="flex w-full cursor-pointer items-center rounded-md px-2 py-1.5 hover:bg-slate-100 focus:bg-slate-100"
               >
-                <Icons.Sun className="mr-2 h-4 w-4" />
                 <span>Light</span>
               </Button>
             </Menu.Item>
@@ -40,7 +36,6 @@ export default function ThemeToggle() {
                 onClick={() => setTheme('dark')}
                 className="flex w-full cursor-pointer items-center rounded-md px-2 py-1.5 hover:bg-slate-100 focus:bg-slate-100"
               >
-                <Icons.Moon className="mr-2 h-4 w-4" />
                 <span>Dark</span>
               </Button>
             </Menu.Item>
@@ -49,7 +44,6 @@ export default function ThemeToggle() {
                 onClick={() => setTheme('system')}
                 className="flex w-full cursor-pointer items-center rounded-md px-2 py-1.5 hover:bg-slate-100 focus:bg-slate-100"
               >
-                <Icons.Laptop className="mr-2 h-4 w-4" />
                 <span>System</span>
               </Button>
             </Menu.Item>
