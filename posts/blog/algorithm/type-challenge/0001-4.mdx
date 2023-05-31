@@ -1,0 +1,42 @@
+---
+description: 'T에서 K 프로퍼티만 선택해 새로운 오브젝트 타입을 만드는 내장 제네릭 Pick<T, K>을 이를 사용하지 않고 구현'
+date: 2023-05-30 16:54:34
+publish: true
+tags: ['type-challenge', 'easy']
+title: '타입 챌린지 - Pick'
+thumbnail: ''
+---
+
+## 풀이
+
+타입스크립트의 `Pick` 유틸리티를 사용하지 않고 동일한 기능을 하는 유형을 생성하는 문제다.
+
+`매핑 타입`을 사용해 `T`의 해당 속성 유형을 인덱싱해 해결하려 했다.
+
+하지만 아래와 같은 오류가 발생했다.
+
+```tsx
+type MyPick<T, K> = {
+  [key in K]: T[K]
+}
+// ❌ Type 'K' is not assignable to type 'string | number | symbol'.
+// ❌ Type 'K' cannot be used to index type 'T'.
+```
+
+### 오류 사항
+
+1. 객체의 키는 `'string | number | symbol'` 유형만 사용할 수 있는데,
+
+   `K`는 제네릭일뿐 유형을 제한하지 않았기에 때문에 발생하는 오류다.
+
+2. 위와 같은 이유로 `K`는 `T`에 인덱싱이 불가하다는 오류다.
+
+`K`를 `T`의 키를 유니언 유형으로 `제한`하면 오류를 해결할 수 있다.
+
+## 코드
+
+```tsx
+type MyPick<T, K extends keyof T> = {
+  [P in K]: T[P]
+}
+```

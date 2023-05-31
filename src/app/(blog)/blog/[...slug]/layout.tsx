@@ -3,5 +3,5 @@ export default function PostLayout({
 }: {
   children: React.ReactNode
 }) {
-  return <>{children}</>
+  return <main>{children}</main>
 }

@@ -24,7 +24,7 @@ export const getAllFiles = async (
 
       const slug = `${prevPaths.join('/')}/${i.replace(/\d+-|\.mdx/g, '')}`
 
-      const post: Post = { ...frontmatter, content, slug }
+      const post: Post = { ...frontmatter, slug, content }
       files.push(post)
       continue
     }
@@ -46,13 +46,12 @@ export const sortPostByDateTime = (posts: Post[]) => {
 export const getAllPostsBy = cache(async (type: PostType) => {
   const path = `${ROOT_DIR}/${type}`
   const posts = await getAllFiles(path)
+
   return sortPostByDateTime(posts)
 })
 
-export const getPostBy = async (type: PostType, slug: Post['slug']) => {
+export const getPostBy = cache(async (type: PostType, slug: Post['slug']) => {
   const posts = await getAllPostsBy(type)
-  console.log(slug)
 
-  // TODO: find by slug
-  return posts
-}
+  return posts.find((i) => i.slug === slug)
+})

@@ -13,8 +13,8 @@ export default async function BlogPage() {
         {posts.map((post) => (
           <Link
             key={post.title}
-            as={`blog/${post.slug}`}
-            href={`blog/${post.slug}`}
+            as={`/blog/${post.slug}`}
+            href={`/blog/${post.slug}`}
           >
             {post.title}
           </Link>
