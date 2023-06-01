@@ -1,5 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
+  :root {
+    --adaptive-gray-50: #f7f8fa;
+    --adaptive-gray-100: #f2f3f6;
+    --adaptive-gray-200: #eaebee;
+    --adaptive-gray-300: #dcdee3;
+    --adaptive-gray-400: #d1d3d8;
+    --adaptive-gray-500: #adb1ba;
+    --adaptive-gray-600: #868b94;
+    --adaptive-gray-700: #4d5159;
+    --adaptive-gray-800: #393a40;
+    --adaptive-gray-900: #212124;
+
+    --background: theme('colors.white');
+  }
+
+  .dark {
+    --adaptive-gray-50: #212124;
+    --adaptive-gray-100: #2b2e33;
+    --adaptive-gray-200: #34373d;
+    --adaptive-gray-300: #43474f;
+    --adaptive-gray-400: #50545c;
+    --adaptive-gray-500: #6d717a;
+    --adaptive-gray-600: #868b94;
+    --adaptive-gray-700: #adb1ba;
+    --adaptive-gray-800: #ced3de;
+    --adaptive-gray-900: #eaebee;
+
+    --background: var(--adaptive-gray-50);
+  }
+
+  body {
+    @apply bg-background;
+  }
 }
