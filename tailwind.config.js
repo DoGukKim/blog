@@ -9,6 +9,18 @@ module.exports = {
     hoverOnlyWhenSupported: true,
   },
   theme: {
+    fontSize: {
+      h1: '3.5rem',
+      h2: '3rem',
+      h3: '2.25rem',
+      h4: '2rem',
+      h5: '1.5rem',
+      h6: '1.25rem',
+      h7: '1.063rem',
+      p: '0.9375rem',
+      sm: '0.8125rem',
+      xs: '0.6875rem',
+    },
     extend: {
       container: {
         center: true,
@@ -36,6 +48,7 @@ module.exports = {
         primary: 'var(--primary)',
         background: 'var(--background)',
       },
+
       fontFamily: {
         sans: ['var(--font-sans)', ...fontFamily.sans],
       },
