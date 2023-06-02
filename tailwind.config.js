@@ -16,8 +16,8 @@ module.exports = {
       h4: '2rem',
       h5: '1.5rem',
       h6: '1.25rem',
-      h7: '1.063rem',
-      p: '0.9375rem',
+      h7: '1.0625rem',
+      p: '0.875rem',
       sm: '0.8125rem',
       xs: '0.6875rem',
     },
@@ -26,7 +26,7 @@ module.exports = {
         center: true,
         padding: '1.5rem',
         screens: {
-          '2xl': '1248px',
+          '2xl': '72rem',
         },
       },
       colors: {
@@ -48,7 +48,6 @@ module.exports = {
         primary: 'var(--primary)',
         background: 'var(--background)',
       },
-
       fontFamily: {
         sans: ['var(--font-sans)', ...fontFamily.sans],
       },

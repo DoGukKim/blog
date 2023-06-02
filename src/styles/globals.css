@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    /* colors */
     --adaptive-gray-50: #f7f8fa;
     --adaptive-gray-100: #f2f3f6;
     --adaptive-gray-200: #eaebee;
@@ -19,6 +20,7 @@
   }
 
   .dark {
+    /* colors */
     --adaptive-gray-50: #212124;
     --adaptive-gray-100: #2b2e33;
     --adaptive-gray-200: #34373d;
@@ -34,6 +36,6 @@
   }
 
   body {
-    @apply bg-background;
+    @apply bg-background text-adaptive-gray-900 antialiased transition-colors;
   }
 }

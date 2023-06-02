@@ -2,9 +2,9 @@ import '@/styles/globals.css'
 
 import { fontSans } from '@/lib/fonts'
 
-import GlobalNav from '@/components/layout/global-nav'
-import ThemeProvider from '@/components/theme-provider'
 import TailwindIndicator from '@/components/tailwind-indicator'
+import ThemeProvider from '@/components/theme-provider'
+import GlobalHeader from '@/components/layout/global-header'
 
 type RootLayoutProps = {
   children: React.ReactNode
@@ -23,7 +23,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="ko" className={fontSans.variable} suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <GlobalNav />
+          <GlobalHeader />
           {children}
           <TailwindIndicator />
         </ThemeProvider>

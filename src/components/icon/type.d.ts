@@ -1,4 +1,4 @@
-type Icons = 'display' | 'github' | 'sun' | 'moon'
+type Icons = 'display' | 'github' | 'sun' | 'logo' | 'moon'
 
 type IconMap = Record<Icons, (props: IconProps) => React.ReactElement>
 

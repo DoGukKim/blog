@@ -1,55 +1,40 @@
 'use client'
 
-import { Fragment } from 'react'
+import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
-import { Menu, Transition } from '@headlessui/react'
 
 import { Button } from './ui/button'
+import Icon from './icon'
 
 export default function ThemeToggle() {
-  const { setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  const { theme, setTheme } = useTheme()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) return null
 
   return (
-    <div>
-      <Menu as="div" className="relative outline-none">
-        <Menu.Button className="h-9 items-center justify-center rounded-md px-2 outline-none transition-colors hover:bg-slate-100 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:bg-transparent dark:text-slate-100 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900 dark:data-[state=open]:bg-transparent"></Menu.Button>
-        <Transition
-          as={Fragment}
-          enter="transition ease-out duration-100"
-          enterFrom="transform opacity-0 scale-95"
-          enterTo="transform opacity-100 scale-100"
-          leave="transition ease-in duration-75"
-          leaveFrom="transform opacity-100 scale-100"
-          leaveTo="transform opacity-0 scale-95"
+    <div className="flex items-center">
+      {(theme === 'light' || theme === 'system') && (
+        <Button
+          onClick={() => setTheme('dark')}
+          className="rounded-lg p-1.5 transition-all hover:bg-adaptive-gray-200"
         >
-          <Menu.Items className="absolute right-0 min-w-[8rem] rounded-md border border-slate-100 bg-white p-1 text-sm text-slate-600 shadow-md">
-            <Menu.Item>
-              <Button
-                onClick={() => setTheme('light')}
-                className="flex w-full cursor-pointer items-center rounded-md px-2 py-1.5 hover:bg-slate-100 focus:bg-slate-100"
-              >
-                <span>Light</span>
-              </Button>
-            </Menu.Item>
-            <Menu.Item>
-              <Button
-                onClick={() => setTheme('dark')}
-                className="flex w-full cursor-pointer items-center rounded-md px-2 py-1.5 hover:bg-slate-100 focus:bg-slate-100"
-              >
-                <span>Dark</span>
-              </Button>
-            </Menu.Item>
-            <Menu.Item>
-              <Button
-                onClick={() => setTheme('system')}
-                className="flex w-full cursor-pointer items-center rounded-md px-2 py-1.5 hover:bg-slate-100 focus:bg-slate-100"
-              >
-                <span>System</span>
-              </Button>
-            </Menu.Item>
-          </Menu.Items>
-        </Transition>
-      </Menu>
+          <Icon as="sun" className="stroke-adaptive-gray-600" />
+        </Button>
+      )}
+
+      {theme === 'dark' && (
+        <Button
+          onClick={() => setTheme('light')}
+          className="rounded-lg p-1.5 transition-all hover:bg-adaptive-gray-200"
+        >
+          <Icon as="moon" className="stroke-adaptive-gray-600" />
+        </Button>
+      )}
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import Display from './display'
 import Github from './github'
+import Logo from './logo'
 import Moon from './moon'
 import Sun from './sun'
 
@@ -7,6 +8,7 @@ const iconMap: IconMap = {
   display: (props: IconProps) => Display(props),
   github: (props: IconProps) => Github(props),
   sun: (props: IconProps) => Sun(props),
+  logo: (props: IconProps) => Logo(props),
   moon: (props: IconProps) => Moon(props),
 }
 

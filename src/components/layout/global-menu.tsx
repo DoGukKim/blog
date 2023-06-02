@@ -18,17 +18,22 @@ export default function GlobalMenu() {
   const pathname = usePathname()
 
   return (
-    <ul className="flex gap-1">
+    <ul className="flex">
       {LINKS.map((link) => {
         const isActive = pathname.includes(link.path)
         return (
-          <li
-            key={link.name}
-            className={cn('text-slate-800', {
-              'text-cyan-300': isActive,
-            })}
-          >
-            <Link href={link.path}>{link.name}</Link>
+          <li key={link.name} className="font-medium">
+            <Link
+              className={cn(
+                'rounded-lg px-2.5 py-2 text-adaptive-gray-600 transition-all hover:bg-adaptive-gray-200 hover:text-adaptive-gray-900',
+                {
+                  'text-adaptive-gray-900': isActive,
+                }
+              )}
+              href={link.path}
+            >
+              {link.name}
+            </Link>
           </li>
         )
       })}
