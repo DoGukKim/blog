@@ -15,7 +15,10 @@ export default function ThemeToggle() {
         className="rounded-lg p-1.5 transition-all hover:bg-adaptive-gray-200"
       >
         <Icon as="sun" className="stroke-adaptive-gray-600 dark:hidden" />
-        <Icon as="moon" className="hidden dark:block" />
+        <Icon
+          as="moon"
+          className="hidden stroke-adaptive-gray-600 dark:block"
+        />
       </Button>
     </div>
   )

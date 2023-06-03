@@ -17,7 +17,7 @@ module.exports = {
       h5: '1.5rem',
       h6: '1.25rem',
       h7: '1.0625rem',
-      p: '0.875rem',
+      p: '0.9375rem',
       sm: '0.8125rem',
       xs: '0.6875rem',
     },
