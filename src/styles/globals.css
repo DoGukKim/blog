@@ -16,6 +16,9 @@
     --adaptive-gray-800: #393a40;
     --adaptive-gray-900: #212124;
 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
     --background: theme('colors.white');
   }
 
@@ -31,6 +34,9 @@
     --adaptive-gray-700: #adb1ba;
     --adaptive-gray-800: #ced3de;
     --adaptive-gray-900: #eaebee;
+
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
 
     --background: var(--adaptive-gray-50);
   }

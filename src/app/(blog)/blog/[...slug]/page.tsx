@@ -36,12 +36,11 @@ export async function generateMetadata({
 
 export default async function PostPage({ params }: PageProps) {
   const post = await getPostBy('blog', params.slug.join('/'))
-
   if (!post) notFound()
 
   return (
-    <article className="prose prose-slate mx-auto">
+    <div className="mx-auto max-w-3xl">
       <PostBody>{post.content}</PostBody>
-    </article>
+    </div>
   )
 }

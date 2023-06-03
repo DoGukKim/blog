@@ -30,6 +30,10 @@ module.exports = {
         },
       },
       colors: {
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
         adaptive: {
           gray: {
             50: 'var(--adaptive-gray-50)',
@@ -53,4 +57,5 @@ module.exports = {
       },
     },
   },
+  plugins: [require('tailwindcss-animate')],
 }
