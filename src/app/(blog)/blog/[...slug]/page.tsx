@@ -39,11 +39,11 @@ export default async function PostPage({ params }: PageProps) {
   const post = await getPostBy('blog', params.slug.join('/'))
   if (!post) notFound()
 
-  const date = dayjs(post.date).format('YYYY-MM-DD')
+  const date = dayjs(post.date).format('YYYY년MM월DD일')
 
   return (
     <div className="mx-auto max-w-3xl">
-      <p className="mb-8 text-p font-semibold tracking-tight">{date}</p>
+      <p className="mb-3 text-p font-semibold">{date}</p>
       <h1 aria-label="title" className="mb-8 text-h3 font-bold tracking-tight">
         {post.title}
       </h1>

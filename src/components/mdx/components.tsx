@@ -1,4 +1,6 @@
 import { type MDXRemoteProps } from 'next-mdx-remote/rsc'
+import Link from 'next/link'
+
 import { Code } from 'bright'
 
 export const MDXComponents: MDXRemoteProps['components'] = {
@@ -16,11 +18,6 @@ export const MDXComponents: MDXRemoteProps['components'] = {
     <h3 className="text-h5 font-semibold tracking-tight" {...props}>
       {props.children}
     </h3>
-  ),
-  a: (props) => (
-    <a className="text-p decoration-adaptive-gray-600" {...props}>
-      {props.children}
-    </a>
   ),
   p: (props) => (
     <p className="text-p leading-7" {...props}>
@@ -48,5 +45,14 @@ export const MDXComponents: MDXRemoteProps['components'] = {
     <li className="">
       <span className="text-p">{props.children}</span>
     </li>
+  ),
+  a: (props) => (
+    <Link
+      className="text-p font-semibold text-adaptive-gray-600 underline decoration-current decoration-1 transition-colors hover:text-cyan-300"
+      // className="text-p decoration-1 [&_code]:font-normal [&_code]:text-adaptive-gray-600 [&_code]:underline [&_code]:decoration-wavy"
+      href={props.href || ''}
+    >
+      {props.children}
+    </Link>
   ),
 }

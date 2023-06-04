@@ -6,7 +6,7 @@ type PostCardProps = {
 }
 
 export default function PostCard({ post }: PostCardProps) {
-  const date = dayjs(post.date).format('YYYY-MM-DD')
+  const date = dayjs(post.date).format('YYYY년MM월DD일')
 
   return (
     <div className="rounded-lg border border-adaptive-gray-100 p-6 hover:bg-adaptive-gray-100">
@@ -19,19 +19,7 @@ export default function PostCard({ post }: PostCardProps) {
         </p>
       </Link>
 
-      <div className="mt-3 flex items-center justify-between">
-        <ul aria-label="tags" className="flex gap-2">
-          {post.tags.map((tag) => (
-            <li
-              className="flex items-center rounded-lg border border-adaptive-gray-300 px-2 py-0.5 font-medium"
-              key={tag}
-            >
-              <span className="text-sm text-adaptive-gray-600">{tag}</span>
-            </li>
-          ))}
-        </ul>
-        <span className="text-sm text-adaptive-gray-600">{date}</span>
-      </div>
+      <p className="mt-2 text-sm text-adaptive-gray-600">{date}</p>
     </div>
   )
 }
