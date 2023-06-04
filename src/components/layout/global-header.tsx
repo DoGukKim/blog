@@ -13,7 +13,7 @@ export default function GlobalHeader() {
       <nav className="container flex items-center">
         <div className="flex items-center">
           <Link
-            href="/"
+            href="/blog"
             aria-label="logo"
             className="mr-3 inline-block rounded-lg p-1 transition-all hover:bg-adaptive-gray-200"
           >

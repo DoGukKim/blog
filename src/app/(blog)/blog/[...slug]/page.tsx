@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { getAllPostsBy, getPostBy } from '@/lib/get-post'
 
 import PostBody from '@/components/mdx/post-body'
+import dayjs from 'dayjs'
 
 type PageParams = {
   slug: Post['slug'][]
@@ -38,8 +39,15 @@ export default async function PostPage({ params }: PageProps) {
   const post = await getPostBy('blog', params.slug.join('/'))
   if (!post) notFound()
 
+  const date = dayjs(post.date).format('YYYY-MM-DD')
+
   return (
     <div className="mx-auto max-w-3xl">
+      <p className="mb-8 text-p font-semibold tracking-tight">{date}</p>
+      <h1 aria-label="title" className="mb-8 text-h3 font-bold tracking-tight">
+        {post.title}
+      </h1>
+
       <PostBody>{post.content}</PostBody>
     </div>
   )
