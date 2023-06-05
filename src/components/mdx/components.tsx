@@ -10,7 +10,7 @@ export const MDXComponents: MDXRemoteProps['components'] = {
     </h1>
   ),
   h2: (props) => (
-    <h2 className="text-h4 font-semibold tracking-tight" {...props}>
+    <h2 className="mb-3 text-h5 font-bold tracking-tight" {...props}>
       {props.children}
     </h2>
   ),
@@ -20,7 +20,10 @@ export const MDXComponents: MDXRemoteProps['components'] = {
     </h3>
   ),
   p: (props) => (
-    <p className="text-p leading-7" {...props}>
+    <p
+      className="text-p leading-7 [&_code]:rounded-md [&_code]:bg-cyan-100 [&_code]:px-1 [&_code]:py-0.5 [&_code]:dark:bg-cyan-900"
+      {...props}
+    >
       {props.children}
     </p>
   ),
@@ -39,20 +42,29 @@ export const MDXComponents: MDXRemoteProps['components'] = {
     )
   },
   ul: (props) => (
-    <ul className="list-inside list-disc pl-3">{props.children}</ul>
+    <ul className="list-inside list-disc pl-3 [&_ul]:list-[circle] [&_ul]:pl-3 [&_ul]:md:pl-8 [&_ul_li]:mb-1">
+      {props.children}
+    </ul>
   ),
   li: (props) => (
-    <li className="">
-      <span className="text-p">{props.children}</span>
+    <li className="mb-3">
+      <span className="text-p leading-7 [&_br]:hidden [&_br]:md:block [&_code]:rounded-md [&_code]:bg-cyan-100 [&_code]:px-1 [&_code]:py-0.5 [&_code]:dark:bg-cyan-900">
+        {props.children}
+      </span>
     </li>
   ),
   a: (props) => (
     <Link
       className="text-p font-semibold text-adaptive-gray-600 underline decoration-current decoration-1 transition-colors hover:text-cyan-300"
-      // className="text-p decoration-1 [&_code]:font-normal [&_code]:text-adaptive-gray-600 [&_code]:underline [&_code]:decoration-wavy"
       href={props.href || ''}
     >
       {props.children}
     </Link>
+  ),
+  Space: () => <div aria-label="space" className="p-4" />,
+  blockquote: (props) => (
+    <blockquote className="m-3 rounded-lg border-l-4 border-gray-300 bg-adaptive-gray-100 px-4 py-5">
+      {props.children}
+    </blockquote>
   ),
 }

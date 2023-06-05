@@ -28,10 +28,12 @@ export async function generateMetadata({
     return {}
   }
 
-  // TODO: og || twitter 설정 env나, config에 설정 사용해도 될 듯!
   return {
     title: post.title,
     description: post.description,
+    openGraph: {
+      type: 'article',
+    },
   }
 }
 
@@ -41,14 +43,39 @@ export default async function PostPage({ params }: PageProps) {
 
   const date = dayjs(post.date).format('YYYY년MM월DD일')
 
-  return (
-    <div className="mx-auto max-w-3xl">
-      <p className="mb-3 text-p font-semibold">{date}</p>
-      <h1 aria-label="title" className="mb-8 text-h3 font-bold tracking-tight">
-        {post.title}
-      </h1>
+  const jsonLd = {
+    '@context': 'https://guk.vercel.app/blog',
+    '@type': 'Article',
+    author: 'Guk',
+    title: post.title,
+    description: post.description,
+    url: 'http://www.guk.vercel.app',
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': 'https://guk.vercel.app/blog',
+    },
+    datePublished: date,
+    dateCreated: date,
+    dateModified: date,
+  }
 
-      <PostBody>{post.content}</PostBody>
-    </div>
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <div className="mx-auto max-w-3xl break-keep pb-12">
+        <p className="mb-3 text-h7">{date}</p>
+        <h1
+          aria-label="title"
+          className="mb-8 text-h3 font-bold tracking-tight"
+        >
+          {post.title}
+        </h1>
+
+        <PostBody>{post.content}</PostBody>
+      </div>
+    </>
   )
 }

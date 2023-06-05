@@ -11,11 +11,30 @@ type RootLayoutProps = {
 }
 
 export const metadata = {
+  metadataBase: new URL('https://guk.vercel.app'),
   title: {
     default: '꾹 블로그',
     template: '%s | 꾹 블로그',
   },
-  description: '꾹 블로그',
+  description: '개발하며 경험, 학습한 내용을 정리하는 공간 입니다.',
+  openGraph: {
+    title: {
+      default: '꾹 블로그',
+      template: '%s | 꾹 블로그',
+    },
+    description: '개발하며 경험, 학습한 내용을 정리하는 공간 입니다.',
+    type: 'website',
+    url: 'https://guk.vercel.app',
+    locale: 'ko_KR',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: {
+      default: '꾹 블로그',
+      template: '%s | 꾹 블로그',
+    },
+    description: '개발하며 경험, 학습한 내용을 정리하는 공간 입니다.',
+  },
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {

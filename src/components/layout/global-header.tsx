@@ -32,7 +32,7 @@ export default function GlobalHeader() {
             href="https://github.com/DoGukKim"
             target="_blank"
             referrerPolicy="no-referrer"
-            className="flex items-center rounded-lg p-1.5 transition-all hover:bg-adaptive-gray-200"
+            className="ml-1 flex items-center rounded-lg p-1.5 transition-all hover:bg-adaptive-gray-200"
           >
             <Icon as="github" className="stroke-adaptive-gray-600" />
           </Link>

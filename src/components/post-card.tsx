@@ -9,7 +9,7 @@ export default function PostCard({ post }: PostCardProps) {
   const date = dayjs(post.date).format('YYYY년MM월DD일')
 
   return (
-    <div className="rounded-lg border border-adaptive-gray-100 p-6 hover:bg-adaptive-gray-100">
+    <div className="flex min-h-[10.1875rem] flex-col justify-between rounded-lg border border-adaptive-gray-100 p-6 hover:bg-adaptive-gray-100">
       <Link href={`/blog/${post.slug}`}>
         <p className="break-keep text-h6 font-bold tracking-tight">
           {post.title}

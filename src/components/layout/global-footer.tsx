@@ -1,3 +1,3 @@
 export default function GlobalFooter() {
-  return <>footer</>
+  return <footer className="container mt-auto">footer</footer>
 }
