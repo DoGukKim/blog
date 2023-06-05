@@ -1,12 +1,11 @@
 import Link from 'next/link'
-import dayjs from 'dayjs'
 
 type PostCardProps = {
   post: Post
 }
 
 export default function PostCard({ post }: PostCardProps) {
-  const date = dayjs(post.date).format('YYYY년MM월DD일')
+  const date = new Date(post.date).toISOString().split('T')[0]
 
   return (
     <div className="flex min-h-[10.1875rem] flex-col justify-between rounded-lg border border-adaptive-gray-100 p-6 hover:bg-adaptive-gray-100">

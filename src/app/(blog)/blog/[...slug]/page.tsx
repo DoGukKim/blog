@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation'
 import { getAllPostsBy, getPostBy } from '@/lib/get-post'
 
 import PostBody from '@/components/mdx/post-body'
-import dayjs from 'dayjs'
 
 type PageParams = {
   slug: Post['slug'][]
@@ -41,7 +40,7 @@ export default async function PostPage({ params }: PageProps) {
   const post = await getPostBy('blog', params.slug.join('/'))
   if (!post) notFound()
 
-  const date = dayjs(post.date).format('YYYY년MM월DD일')
+  const date = new Date(post.date).toISOString().split('T')[0]
 
   const jsonLd = {
     '@context': 'https://guk.vercel.app/blog',
@@ -54,9 +53,9 @@ export default async function PostPage({ params }: PageProps) {
       '@type': 'WebPage',
       '@id': 'https://guk.vercel.app/blog',
     },
-    datePublished: date,
-    dateCreated: date,
-    dateModified: date,
+    datePublished: post.date,
+    dateCreated: post.date,
+    dateModified: post.date,
   }
 
   return (

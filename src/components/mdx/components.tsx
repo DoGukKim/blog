@@ -15,7 +15,7 @@ export const MDXComponents: MDXRemoteProps['components'] = {
     </h2>
   ),
   h3: (props) => (
-    <h3 className="text-h5 font-semibold tracking-tight" {...props}>
+    <h3 className="text-h6 font-semibold tracking-tight" {...props}>
       {props.children}
     </h3>
   ),
@@ -42,7 +42,7 @@ export const MDXComponents: MDXRemoteProps['components'] = {
     )
   },
   ul: (props) => (
-    <ul className="list-inside list-disc pl-3 [&_ul]:list-[circle] [&_ul]:pl-3 [&_ul]:md:pl-8 [&_ul_li]:mb-1">
+    <ul className="list-inside list-disc pl-3 [&_ul]:mt-1.5 [&_ul]:list-[circle] [&_ul]:pl-3 [&_ul]:md:pl-8 [&_ul_li]:mb-1">
       {props.children}
     </ul>
   ),
