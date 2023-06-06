@@ -68,10 +68,11 @@ export default async function PostPage({ params }: PageProps) {
         <p className="mb-3 text-h7">{date}</p>
         <h1
           aria-label="title"
-          className="mb-8 text-h3 font-bold tracking-tight"
+          className="mb-3 text-h3 font-bold tracking-tight"
         >
           {post.title}
         </h1>
+        <p className="mb-8 text-adaptive-gray-600">{post.description}</p>
 
         <PostBody>{post.content}</PostBody>
       </div>

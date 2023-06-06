@@ -10,18 +10,18 @@ export const MDXComponents: MDXRemoteProps['components'] = {
     </h1>
   ),
   h2: (props) => (
-    <h2 className="mb-3 text-h5 font-bold tracking-tight" {...props}>
+    <h2 className="mb-1 text-h5 font-bold tracking-tight" {...props}>
       {props.children}
     </h2>
   ),
   h3: (props) => (
-    <h3 className="text-h6 font-semibold tracking-tight" {...props}>
+    <h3 className="mb-2 mt-4 text-h6 font-bold" {...props}>
       {props.children}
     </h3>
   ),
   p: (props) => (
     <p
-      className="text-p leading-7 [&_code]:rounded-md [&_code]:bg-cyan-100 [&_code]:px-1 [&_code]:py-0.5 [&_code]:dark:bg-cyan-900"
+      className="text-p leading-7 [&_code]:rounded-md [&_code]:bg-adaptive-gray-500 [&_code]:px-1 [&_code]:py-0.5"
       {...props}
     >
       {props.children}
@@ -42,13 +42,13 @@ export const MDXComponents: MDXRemoteProps['components'] = {
     )
   },
   ul: (props) => (
-    <ul className="list-inside list-disc pl-3 [&_ul]:mt-1.5 [&_ul]:list-[circle] [&_ul]:pl-3 [&_ul]:md:pl-8 [&_ul_li]:mb-1">
+    <ul className="list-inside list-disc [&_ul]:list-[circle] [&_ul]:pl-6">
       {props.children}
     </ul>
   ),
   li: (props) => (
-    <li className="mb-3">
-      <span className="text-p leading-7 [&_br]:hidden [&_br]:md:block [&_code]:rounded-md [&_code]:bg-cyan-100 [&_code]:px-1 [&_code]:py-0.5 [&_code]:dark:bg-cyan-900">
+    <li className="my-3">
+      <span className="text-p leading-7 [&_br]:hidden [&_br]:md:block [&_code]:rounded-md [&_code]:bg-adaptive-gray-500 [&_code]:px-1 [&_code]:py-0.5">
         {props.children}
       </span>
     </li>
@@ -61,9 +61,9 @@ export const MDXComponents: MDXRemoteProps['components'] = {
       {props.children}
     </Link>
   ),
-  Space: () => <div aria-label="space" className="p-4" />,
+  Space: () => <div aria-label="space" className="p-6" />,
   blockquote: (props) => (
-    <blockquote className="m-3 rounded-lg border-l-4 border-gray-300 bg-adaptive-gray-100 px-4 py-5">
+    <blockquote className="rounded-lg border-l-4 border-gray-300 bg-adaptive-gray-100 px-4 py-5">
       {props.children}
     </blockquote>
   ),

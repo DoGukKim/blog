@@ -16,8 +16,8 @@
     --adaptive-gray-800: #393a40;
     --adaptive-gray-900: #212124;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: var(--adaptive-gray-400);
+    --muted-foreground: var(--adaptive-gray-400);
 
     --background: theme('colors.white');
   }
@@ -35,16 +35,13 @@
     --adaptive-gray-800: #ced3de;
     --adaptive-gray-900: #eaebee;
 
-    --muted: 223 47% 11%;
-    --muted-foreground: 215.4 16.3% 56.9%;
+    --muted: var(--adaptive-gray-600);
+    --muted-foreground: var(--adaptive-gray-600);
 
     --background: var(--adaptive-gray-50);
   }
 
   body {
     @apply bg-background text-adaptive-gray-900 antialiased transition-colors;
-  }
-  ::selection {
-    @apply bg-cyan-300;
   }
 }

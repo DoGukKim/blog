@@ -34,8 +34,8 @@ module.exports = {
       },
       colors: {
         muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
+          DEFAULT: 'var(--muted)',
+          foreground: 'var(--muted-foreground)',
         },
         adaptive: {
           gray: {
