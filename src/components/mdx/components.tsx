@@ -21,7 +21,7 @@ export const MDXComponents: MDXRemoteProps['components'] = {
   ),
   p: (props) => (
     <p
-      className="text-p leading-7 [&_code]:rounded-md [&_code]:bg-adaptive-gray-500 [&_code]:px-1 [&_code]:py-0.5"
+      className="text-p leading-7 [&_code]:rounded-md [&_code]:bg-adaptive-gray-300 [&_code]:px-1 [&_code]:py-0.5"
       {...props}
     >
       {props.children}
@@ -42,13 +42,13 @@ export const MDXComponents: MDXRemoteProps['components'] = {
     )
   },
   ul: (props) => (
-    <ul className="list-inside list-disc [&_ul]:list-[circle] [&_ul]:pl-6">
+    <ul className="list-inside list-disc marker:m-0 [&_ul]:list-[circle] [&_ul]:pl-6">
       {props.children}
     </ul>
   ),
   li: (props) => (
-    <li className="my-3">
-      <span className="text-p leading-7 [&_br]:hidden [&_br]:md:block [&_code]:rounded-md [&_code]:bg-adaptive-gray-500 [&_code]:px-1 [&_code]:py-0.5">
+    <li className="my-2">
+      <span className="text-p leading-7 [&_br]:hidden [&_br]:md:block [&_code]:rounded-md [&_code]:bg-adaptive-gray-300 [&_code]:px-1 [&_code]:py-0.5">
         {props.children}
       </span>
     </li>
@@ -63,7 +63,7 @@ export const MDXComponents: MDXRemoteProps['components'] = {
   ),
   Space: () => <div aria-label="space" className="p-6" />,
   blockquote: (props) => (
-    <blockquote className="rounded-lg border-l-4 border-gray-300 bg-adaptive-gray-100 px-4 py-5">
+    <blockquote className="my-3 border-l-4 border-gray-300 bg-adaptive-gray-100 px-4 py-5">
       {props.children}
     </blockquote>
   ),
