@@ -9,7 +9,7 @@ export default async function BlogPage() {
   if (!posts) return notFound()
 
   return (
-    <div className="container flex flex-col">
+    <div className="container flex flex-col pb-12">
       <h1 className="text-h2 font-bold tracking-tight">Blog</h1>
       <p aria-label="" className="mt-1 text-p">
         개발하며 경험, 학습한 내용을 정리하는 공간 입니다.

@@ -9,7 +9,7 @@ export default function Loading() {
       <Skeleton className="mt-10 h-10 w-40" />
 
       <div className="mt-4 grid grid-cols-2 gap-6">
-        {Array.from({ length: 6 }).map((_, i) => (
+        {Array.from({ length: 10 }).map((_, i) => (
           <div
             key={i}
             className="rounded-lg border border-adaptive-gray-100 p-6"

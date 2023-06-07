@@ -9,7 +9,7 @@ export default function PostCard({ post }: PostCardProps) {
 
   return (
     <Link
-      className="flex min-h-[10.1875rem] flex-col justify-between rounded-lg border border-adaptive-gray-100 p-6 hover:bg-adaptive-gray-100"
+      className="flex min-h-[10.1875rem] flex-col justify-between rounded-lg border border-adaptive-gray-200 p-6 hover:bg-adaptive-gray-100"
       href={`/blog/${post.slug}`}
     >
       <p className="break-keep text-h6 font-bold tracking-tight">

@@ -42,9 +42,12 @@ export const MDXComponents: MDXRemoteProps['components'] = {
     )
   },
   ul: (props) => (
-    <ul className="list-inside list-disc marker:m-0 [&_ul]:list-[circle] [&_ul]:pl-6">
+    <ul className="list-inside list-disc [&_ul]:list-[circle] [&_ul]:pl-6">
       {props.children}
     </ul>
+  ),
+  ol: (props) => (
+    <ol className="list-inside list-decimal [&_ul]:pl-6">{props.children}</ol>
   ),
   li: (props) => (
     <li className="my-2">
