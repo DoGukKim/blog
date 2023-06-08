@@ -59,6 +59,7 @@ export const MDXComponents: MDXRemoteProps['components'] = {
   a: (props) => (
     <Link
       className="text-p font-semibold text-adaptive-gray-600 underline decoration-current decoration-1 transition-colors hover:text-cyan-300"
+      target="_blank"
       href={props.href || ''}
     >
       {props.children}

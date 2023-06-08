@@ -22,7 +22,7 @@ export default async function BlogPage() {
         <span className="ml-1 text-h7">({posts.length})</span>
       </h2>
 
-      <ul className="mt-3 grid grid-cols-2 gap-6">
+      <ul className="mt-3 grid grid-cols-1 gap-6 lg:grid-cols-2">
         {posts.map((post) => (
           <li key={post.title}>
             <PostCard post={post} />
