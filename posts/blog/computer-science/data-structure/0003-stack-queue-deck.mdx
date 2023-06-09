@@ -1,0 +1,99 @@
+---
+description: '스택과 큐에 동작 원리와 코드 구현까지 알아보자!'
+date: 2023-06-09 13:54:21
+publish: true
+tags: ['컴퓨터 공학', '자료구조']
+title: 'Stack과 Queue'
+thumbnail: ''
+---
+
+## ADT(Abstract Data Type)
+
+추상 데이터 타입은 자료구조에 대해 수행할 수 있는 `연산`과 `동작`을 추상화한 것이다.  
+즉, 자료구조를 구현하는 방법이 명시된 것이 아닌, 연산과 동작에 설명을 의미한다.  
+따라서 연산과 동작이 동일한 경우, 어떠한 자료구조를 활용해 구현해도 되는 것이다.  
+아래 설명할 스택과 큐는 ADT로 분류되며, 일반적으로 배열로 구성되지만 다른 자료구조를 사용해도 된다.
+
+<Space />
+
+## 스택(Stack)
+
+`후입선출(Last-In-First-Out)` 원칙을 따르는 선형 데이터 구조다.  
+삽입과 삭제가 자료의 끝에서 이루어지며, 일반적으로 배열을 사용해 구현한다.
+
+### 사용 사례
+
+- `후위 표기법(postifx)`의 산술 식을 평가하는 데 사용할 수 있다.
+- `깊이 우선 탐색` 알고리즘을 수행하는데 사용할 수 있다.
+- `백 트래킹` 알고리즘과 같이 이전 작업을 기억하고 필요에 따라 작업을 수행해야 할 때 사용할 수 있다.
+
+### 구현 코드
+
+```tsx
+export class Stack {
+  constructor() {
+    // 연결 리스트로 사용할 수도 있다.
+    this.stack = []
+  }
+
+  push(value) {
+    this.stack.push(value)
+  }
+
+  pop() {
+    this.stack.pop()
+  }
+
+  peek() {
+    if (this.isEmpty()) return null
+    return this.stack[this.stack.length - 1]
+  }
+
+  isEmpty() {
+    return this.stack.length > 0
+  }
+}
+```
+
+<Space />
+
+## 큐(Queue)
+
+큐는 `선입선출(First-In-First-Out)` 원칙을 따르는 선형 데이터 구조다.  
+일반적으로 배열이나 이중 연결 리스트를 통해 구현한다.  
+삽입은 자료의 끝에서 이루어지며, 삭제 또는 최근에 추가된 요소는 앞에서만 이루어진다.
+
+### 사용 사례
+
+- 데이터를 순차적으로 해야 할 때 사용될 수 있다.
+- 너비 우선 탐색 알고리즘을 수행하는데 사용될 수 있다.
+- 최단 거리 알고리즘인 다익스트라 알고리즘을 수행하는데 사용될 수 있다.
+
+### 구현 코드
+
+```tsx
+class Queue {
+  constructor() {
+    // 배열이나, 연결 리스트로 사용해도 좋다. 보편적으로 이중연결리스트를 사용한다.
+    this.queue = []
+  }
+
+  enqueue(value) {
+    this.queue.push(value)
+  }
+
+  dequeue() {
+    return this.queue.shift()
+  }
+
+  read() {
+    return this.queue[0]
+  }
+}
+```
+
+<Space />
+
+## 참조
+
+[누구나 자료 구조와 알고리즘 - 길벗](https://product.kyobobook.co.kr/detail/S000001834743)

@@ -15,7 +15,7 @@ export const MDXComponents: MDXRemoteProps['components'] = {
     </h2>
   ),
   h3: (props) => (
-    <h3 className="mb-2 mt-4 text-h6 font-bold" {...props}>
+    <h3 className="mb-2 mt-5 text-h6 font-bold" {...props}>
       {props.children}
     </h3>
   ),
