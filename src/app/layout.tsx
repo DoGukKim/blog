@@ -5,6 +5,7 @@ import { fontSans } from '@/lib/fonts'
 import TailwindIndicator from '@/components/tailwind-indicator'
 import ThemeProvider from '@/components/theme-provider'
 import GlobalHeader from '@/components/layout/global-header'
+import GlobalFooter from '@/components/layout/global-footer'
 
 type RootLayoutProps = {
   children: React.ReactNode
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <GlobalHeader />
           {children}
+          <GlobalFooter />
           <TailwindIndicator />
         </ThemeProvider>
       </body>

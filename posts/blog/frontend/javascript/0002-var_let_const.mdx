@@ -1,0 +1,101 @@
+---
+description: '면접 단골 질문인 var, let, const를 한 번에 알아보자!'
+date: 2023-06-10 09:25:44
+publish: true
+tags: ['프론트 엔드', '자바스크립트']
+title: 'var, let, const'
+thumbnail: ''
+---
+
+## var
+
+var는 선언과 동시에 undefined 값으로 초기화되기 때문에,  
+호이스팅 시 참조 에러를 발생하지 않고 undefined를 참조하게 된다.
+
+> 호이스팅이란 해당 스코프의 최상단으로 옮겨지는 동작을 말한다.
+
+```tsx
+console.log(foo) // undefined
+var foo
+```
+
+또한 중복 선언과 함수 레벨 스코프만 지원하기 때문에, 과도한 전역 변수를 생성하게 되는 문제가 있다.
+
+```tsx
+var foo = 123
+{
+  var foo = 456 // foo는 전역 변수다 var는 함수 레벨 스코프이기 때문이다.
+}
+console.log(foo) // 456
+```
+
+`암묵적 전역`이 발생한다.  
+암묵적 전역이란 변수를 선언하지 않고 값을 할당했을 때, 해당 변수가 자동으로 전역 객체(window)에  
+속성(property)이 생성되는 현상을 말한다.
+
+```tsx
+function foo() {
+  x = 30
+  y = 10
+}
+
+window.x // 30
+window.y // 10
+```
+
+<Space />
+
+## let
+
+var와 다르게 중복 선언할 수 없으며, 런타임(실행)에 초기화되기 때문에 호이스팅 시 참조 에러가 발생한다.  
+이러한 경계 구역을 `일시적 사각지대(Temporal Dead Zone)`라 한다.  
+블록 레벨 스코프를 지원하기 때문에 반복문, 조건문 등에서 스코프를 갖는다.
+
+```tsx
+console.log(foo) // Refer Error
+// --- TDZ ---
+
+let foo // 선언문에서 초기화가 이루어짐
+console.log(foo) // undefined
+
+foo = 123 // 할당문
+console.log(123) // 123
+```
+
+또한 let은 암묵적 전역이 발생하지 않는다.
+
+```tsx
+let x = 1
+console.log(window.x) // undefined
+```
+
+<Space />
+
+## const
+
+중복 선언 불가, 블록 레벨 스코프를 지원, 런타임에 초기화는 let과 동일하다.  
+다른 것은 재할당이 불가능해 상수를 선언할 때 사용할 수 있다.  
+선언과 동시에 초기화를 명시하지 않으면 문법 에러가 발생한다.
+
+```tsx
+let x // No Error
+const y // Syntax Error
+```
+
+참조 타입을 할당한 경우 값을 변경할 수 있다.  
+즉, 재할당을 금지할 뿐 `불변`을 의미하지 않는다.
+
+```tsx
+const human = {
+  name: 'guk',
+}
+
+human.age = 30
+console.log(human.age) // 30
+```
+
+<Space />
+
+## 참조
+
+[모던 자바스크립트 Deep Dive - 위키북스](https://product.kyobobook.co.kr/detail/S000001766445)
