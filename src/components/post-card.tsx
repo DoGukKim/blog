@@ -9,7 +9,7 @@ export default function PostCard({ post }: PostCardProps) {
   const date = new Date(post.date).toISOString().split('T')[0]
 
   return (
-    <div className="flex max-h-[11.25rem] min-h-[11.25rem] flex-col justify-between rounded-lg border border-adaptive-gray-200 p-4 hover:bg-adaptive-gray-100 md:p-6">
+    <div className="flex max-h-[10.625rem] min-h-[10.625rem] flex-col justify-between rounded-lg border border-adaptive-gray-200 p-4 hover:bg-adaptive-gray-100 md:max-h-[11.25rem] md:min-h-[11.25rem] md:p-6">
       <Link className="flex flex-col" href={`/blog/${post.slug}`}>
         <span className="break-keep text-h6 font-bold ">{post.title}</span>
         <span className="max-w-md break-keep pt-2 text-p text-adaptive-gray-600">
