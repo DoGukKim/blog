@@ -55,3 +55,45 @@ export const getPostBy = cache(async (type: PostType, slug: Post['slug']) => {
 
   return posts.find((i) => i.slug === slug)
 })
+
+export const getAllDir = async (path: string, dirs: string[] = []) => {
+  const curDir = await fs.readdir(path)
+
+  for (const i of curDir) {
+    const subPath = `${path}/${i}`
+    const subDir = await fs.stat(subPath)
+
+    if (!subDir.isDirectory()) continue
+
+    dirs.push(i)
+    await getAllDir(subPath, dirs)
+  }
+
+  return dirs
+}
+
+export const getAllTagsBy = cache(async (type: PostType) => {
+  const path = `${ROOT_DIR}/${type}`
+  const dirs = await getAllDir(path)
+
+  return dirs
+})
+
+export const replaceKoreanOfTagName = (name: string) => {
+  const map: { [key: string]: string } = {
+    algorithm: '알고리즘',
+    baekjoon: '백준',
+    programmers: '프로그래머스',
+    'type-challenge': '타입 챌린지',
+    'computer-science': '컴퓨터 공학',
+    'data-structure': '자료구조',
+    database: '데이터 베이스',
+    network: '네트워크',
+    'operate-systems': '운영체제',
+    frontend: '프론트 엔드',
+    javascript: '자바스크립트',
+    typescript: '타입스크립트',
+  }
+
+  return map[name]
+}

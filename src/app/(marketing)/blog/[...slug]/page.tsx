@@ -23,9 +23,7 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const post = await getPostBy('blog', params.slug.join('/'))
 
-  if (!post) {
-    return {}
-  }
+  if (!post) return {}
 
   return {
     title: post.title,

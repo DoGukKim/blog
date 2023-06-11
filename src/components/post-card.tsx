@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { replaceKoreanOfTagName } from '@/lib/get-post'
 
 type PostCardProps = {
   post: Post
@@ -8,17 +9,30 @@ export default function PostCard({ post }: PostCardProps) {
   const date = new Date(post.date).toISOString().split('T')[0]
 
   return (
-    <Link
-      className="flex min-h-[10.1875rem] flex-col justify-between rounded-lg border border-adaptive-gray-200 p-6 hover:bg-adaptive-gray-100"
-      href={`/blog/${post.slug}`}
-    >
-      <p className="break-keep text-h6 font-bold tracking-tight">
-        {post.title}
-      </p>
-      <p className="mt-2 max-w-md break-keep text-p text-adaptive-gray-600">
-        {post.description}
-      </p>
-      <p className="mt-2 text-sm text-adaptive-gray-600">{date}</p>
-    </Link>
+    <div className="flex max-h-[11.25rem] min-h-[11.25rem] flex-col justify-between rounded-lg border border-adaptive-gray-200 p-4 hover:bg-adaptive-gray-100 md:p-6">
+      <Link className="flex flex-col" href={`/blog/${post.slug}`}>
+        <span className="break-keep text-h6 font-bold ">{post.title}</span>
+        <span className="max-w-md break-keep pt-2 text-p text-adaptive-gray-600">
+          {post.description}
+        </span>
+      </Link>
+
+      <div className="flex items-end justify-between">
+        <ul className="flex flex-wrap gap-2.5">
+          {post.tags.map((tag) => (
+            <li key={tag}>
+              <Link
+                className="rounded-lg border border-adaptive-gray-300 px-2 py-1.5 text-sm hover:bg-adaptive-gray-400"
+                href={`/tags/${tag}`}
+              >
+                {replaceKoreanOfTagName(tag)}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        <span className="text-sm text-adaptive-gray-600">{date}</span>
+      </div>
+    </div>
   )
 }
