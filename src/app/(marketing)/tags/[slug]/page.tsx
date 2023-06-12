@@ -10,6 +10,7 @@ import {
 import { toCapitalize } from '@/utils/char'
 
 import PostCard from '@/components/post-card'
+import { cn } from '@/utils/cn'
 
 type PageParams = {
   slug: string
@@ -48,16 +49,24 @@ export default async function TagsPage({ params }: PageProps) {
       </h1>
 
       <ul className="flex flex-wrap gap-2">
-        {allTags.map((tag) => (
-          <li key={tag} className="mb-3">
-            <Link
-              className="rounded-lg border border-adaptive-gray-200 px-2.5 py-1.5 hover:bg-adaptive-gray-100"
-              href={`/tags/${tag}`}
-            >
-              {replaceKoreanOfTagName(tag)}
-            </Link>
-          </li>
-        ))}
+        {allTags.map((tag) => {
+          const isActive = params.slug === tag
+          return (
+            <li key={tag} className="mb-3">
+              <Link
+                className={cn(
+                  'rounded-lg border border-adaptive-gray-200 px-2.5 py-1.5 hover:bg-adaptive-gray-100',
+                  {
+                    'bg-adaptive-gray-300': isActive,
+                  }
+                )}
+                href={`/tags/${tag}`}
+              >
+                {replaceKoreanOfTagName(tag)}
+              </Link>
+            </li>
+          )
+        })}
       </ul>
 
       <h2 className="mt-8 text-h3 font-bold tracking-tight">
