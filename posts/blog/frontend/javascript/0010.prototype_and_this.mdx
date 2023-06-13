@@ -1,0 +1,158 @@
+---
+description: '자바스크립트 핵심 개념인 prototype, this를 알아보자!'
+date: 2023-01-20 11:03:44
+publish: true
+tags: ['frontend', 'javascript']
+title: 'prototype과 this'
+thumbnail: ''
+---
+
+## Prototype
+
+프로토타입은 특정 객체에 프로퍼티을 상속하기 위해 상위 객체 역할을 하는 객체다.
+
+모든 자바스크립트 객체는 프로토타입을 갖는다.
+
+<Space />
+
+## [[Prototype]]
+
+모든 객체에는 `[[Prototype]]` 인터널 슬롯이 존재한다.
+
+이 슬롯에 참조되는 프로토타입은 생성 방식에 따라 결정된다.
+
+예를 들어 리터럴 방식으로 생성한 객체는 빌트인 객체인 Object 참조가 저장된다.
+
+생성자 함수에 의해 생성된 인스턴스는 생성자 함수의 prototype이 저장된다.
+
+### 리터럴
+
+```tsx
+const obj = {}
+// Object
+// [[Prototype]]: Object
+console.log(obj.__proto__ === Object.prototype) // true
+```
+
+### 생성자 함수
+
+```tsx
+const myFuncInstance = new myFunc()
+// myFunc
+// say: "hello"
+// [[Prototype]]: Object
+// constructor: ƒ myFunc()
+// [[Prototype]]: Object
+console.log(myFuncInstance.__proto__ === myFunc.prototype) // true
+```
+
+<Space />
+
+## proto 접근자 프로퍼티
+
+인터널 슬롯은 프로퍼티가 아니기 때문에 원칙적으로 직접적 접근이 안된다.
+
+개발자가 인터널 슬롯을 조작하는 것은 예기치 않은 오류, 동작의 가능성이 있기 때문이다.
+
+단, 간접적인 접근자 프로퍼티를 사용해 접근 할 수 있게 설계되었다.
+
+프로토타입은 `__proto__` 접근자 프로퍼티로 간접적으로 접근할 수 있다.
+
+접근자 프로퍼티는 객체가 직접 소유하는 것이 아니라, Object.prototype의 프로퍼티다.
+
+즉, 모든 객체는 상속을 통해 접근자 프로퍼티를 사용할 수 있는 것이다.
+
+```tsx
+const person = { name: 'guk' }
+console.log(person.hasOwnProperty('__proto__')) // false
+console.log({}.__proto__ === Object.prototype) // true
+```
+
+<Space />
+
+## 프로토타입 체인
+
+스코프 체인과 마찬가지로 계층 구조로 속성값을 참조하기 위해 최상위에 도달할 때까지 순회하는 것을 말한다.
+
+객체는 프로퍼티에 접근하려 할 때 해당 객체에 없다면, [[Prototype]] 내부 슬롯을 통해 상위 프로토타입을 탐색한다.
+
+<Space />
+
+## `상속`
+
+자바스크립트는 프로토타입을 기반으로 `상속`을 구현할 수 있다.
+
+아래 코드를 보면 프로토타입을 통해 모든 인스턴스마다 `sayHi` 메서드를 생성하지 않아도 된다.
+
+```tsx
+// 프토로타입을 사용한 상속
+function Person(name, age) {
+  this.name = name
+  this.age = age
+}
+
+Person.prototype.sayHi = function () {
+  console.log(`hi i'm ${this.name} and my age is ${this.age}.`)
+}
+
+const me = new Person('kim', 30)
+const someone = new Person('lim', 26)
+console.log(me.sayHi())
+console.log(someone.sayHi())
+```
+
+아래 코드는 각 인스턴스마다 메서드를 `중복` 소유하게 된다.
+
+```tsx
+function Person(name, age) {
+  this.name = name
+  this.age = age
+
+  this.sayHi = () => {
+    console.log(`hi i'm ${this.name} and my age is ${this.age}.`)
+  }
+}
+
+const me = new Person('kim', 30)
+const someone = new Person('lim', 28)
+console.log(me.sayHi())
+console.log(someone.sayHi())
+```
+
+<Space />
+
+## this
+
+자신이 속한 객체나 생성할 인스턴스를 가리키는 자기 참조 변수다.
+
+this 바인딩은 `동적(함수 호출시점)`으로 결정된다.
+
+```tsx
+console.log(this) // window
+
+function sayName (){
+	console.log(this) // window
+}
+sayName(); // 전역 호출
+
+const person = {
+	name: 'kim'
+	sayName(){
+		console.log(this) // {name: 'kim, sayName: f}
+		// 메서드 내부에서 this는 호출한 객체를 가리킨다.
+	}
+}
+
+function Person(name){
+	this.name = name
+	console.log(this) // {name: 'kim'} 생성할 인스턴스를 가리킨다.
+}
+
+const me = new Person('kim');
+```
+
+<Space />
+
+## 참조
+
+[모던 자바스크립트 Deep Dive - 위키북스](https://product.kyobobook.co.kr/detail/S000001766445)

@@ -10,7 +10,7 @@ export default function GlobalFooter() {
         <Link
           href="/blog"
           aria-label="logo"
-          className="mr-1.5 inline-block rounded-lg p-1 transition-all hover:bg-adaptive-gray-200"
+          className="mr-1.5 inline-block min-w-max rounded-lg p-1 transition-all hover:bg-adaptive-gray-200"
         >
           <Image priority src={me} alt="me" className="h-6 w-6 rounded-full" />
         </Link>
@@ -25,7 +25,8 @@ export default function GlobalFooter() {
           >
             DoGukKim
           </Link>
-          . Hosted on Vercel. The source code is available on{' '}
+          . Hosted on Vercel.
+          <br className=" sm:hidden" /> The source code is available on{' '}
           <Link
             href="https://github.com/DoGukKim/blog"
             referrerPolicy="no-referrer"

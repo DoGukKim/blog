@@ -1,0 +1,163 @@
+---
+description: '이벤트 핸들링, 전파, 위임에 대해 이해하고 디바운스, 쓰로슬링까지 알아보자!'
+date: 2023-02-23 08:46:55
+publish: true
+tags: ['frontend', 'javascript']
+title: '이벤트 핸들링'
+thumbnail: ''
+---
+
+## 이벤트
+
+브라우저는 처리해야할 특정 행동이 발생하면 감지해 이벤트를 발생한다.
+
+이때 호출해야할 함수를 `이벤트 핸들러`라하며 핸들러 호출을 위임하는 것을 `이벤트 핸들러 등록`이라 한다.
+
+예를 들어 브라우저에 `onClick`이라는 이벤트 핸들러에 콜백 함수를 등록하는 것이 이벤트 핸들러 등록이며,
+
+등록을 통해 브라우저가 핸들러를 호출을 할 수 있다.
+
+<Space />
+
+## 이벤트 핸들러 등록 방법
+
+이벤트 핸들러를 등록하는 방법은 크게 3가지다.
+
+### 태그 속성
+
+HTML 태그 속성으로 등록하는 방법이다.
+
+```tsx
+const handleClick = () => console.log('hi')
+<Button onClick={handleClick} />
+```
+
+### 프로퍼티에 바인딩
+
+이벤트 타깃을 지정하고 이벤트 핸들러 프로퍼티에 바인딩하는 방법이다.
+
+```tsx
+const someButton = document.querySelector('button');
+someButton.onClick = 콜백 함수
+```
+
+### addEventListener
+
+`addEventListener` 방식은 기존 이벤트 프로퍼티에 아무런 영향을 주지 않으며,
+
+두 방식을 동시에 사용할 경우 모두 호출된다. 참조가 같은 함수를 등록할 경우 하나만 동작한다.
+
+두 방식의 차이는 addEventListener는 하나 이상의 함수를 참조할 수 있으며, 프로퍼티는 하나만 등록할 수 있다.
+
+```tsx
+const someButton = document.querySelector('button');
+someButton.addEventListenner('click', 콜백 함수, 캡쳐링 사용 여부)
+```
+
+<Space />
+
+## 이벤트 전파
+
+이벤트를 발생시킨 `타깃`을 중심으로 DOM 트리를 통해 전파된다.
+
+이때 이벤트 전파의 흐름은 3단계로 `캡쳐링 → 타깃 → 버블링` 로 이루어져 있다.
+
+### 캡쳐링
+
+캡쳐링이란 최상위 조상 document 에서 대상 요소까지 이벤트가 `아래로 전파`되는 현상을 말한다.
+
+캡쳐링 이벤트를 트리거 하기 위해선 사용 여부를 설정해 주어야 한다.
+
+### 버블링
+
+어떠한 대상 요소 이벤트 핸들러가 동작 한 후 이벤트가 `위로 전파`되는 현상을 말한다.
+
+버블링은 대상 이벤트에서 html을 거쳐 document 객체를 만날 때까지 발생한다.
+
+아래 코드를 보면 em 태그를 클릭했을 때 div까지 이벤트 헨들러가 동작하는 것을 볼 수 있다.
+
+```jsx
+<div onClick={() => alert('div')}>
+  div
+  <span onClick={() => alert('span')}>
+    span
+    <em onClick={() => alert('em')}>em</em>
+  </span>
+</div>
+```
+
+### 버블링 중단하기
+
+버블링을 중단하기 위해선 `stopPropagation()` 를 활용해 막을 수 있다.
+
+```jsx
+<div onClick={() => alert('버블링은 여기까지 도달하지 못한다!')}>
+  <button onClick={(e) => e.stopPropagation()}></button>
+</div>
+```
+
+<Space />
+
+## 이벤트 위임
+
+캡쳐링, 버블링을 이용해 여러 이벤트 핸들러를 할당하지 않고,
+
+상위 요소에 이벤트 핸들러를 할당해 이벤트를 관리하는 방식이다.
+
+이를 통해서 동적 엘리먼트 이벤트 처리와 핸들러 할당의 감소로 메모리 누수를 방지할 수 있다.
+
+구현방법은 하단에 모던 튜터리얼 참조!
+
+<Space />
+
+## 디바운스
+
+짧은 시간 간격으로 이벤트가 발생하더라도, `마지막에 한 번`만 이벤트 핸들러가 호출되도록 한다.
+
+내부 로직을 보면 `clearTimeout`으로 `setTimeout` 함수를 취소하며 타이머를 `재설정`한다.
+
+즉, 300밀리 세컨드를 새로 다시 스케줄한다는 의미다.
+
+```tsx
+function debounce(func, timeout = 300) {
+  let timer
+  return (...args) => {
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      func.apply(this, args)
+    }, timeout)
+  }
+}
+function saveInput() {
+  console.log('Saving data')
+}
+const processChange = debounce(() => saveInput())
+```
+
+<Space />
+
+## 스로틀
+
+짧은 시간 간격으로 이벤트가 발생하더라도, 임의로 설정한 `일정 시간 간격`으로 실행되도록 한다.
+
+```tsx
+function throttle(callback, limit = 100) {
+  let waiting = false
+  return function () {
+    if (!waiting) {
+      callback.apply(this, arguments)
+      waiting = true
+      setTimeout(() => {
+        waiting = false
+      }, limit)
+    }
+  }
+}
+```
+
+<Space />
+
+## 참조
+
+[모던 자바스크립트 Deep Dive - 위키북스](https://product.kyobobook.co.kr/detail/S000001766445)  
+[모던 JavaScript 튜토리얼 - 이벤트 위임](https://ko.javascript.info/event-delegation#ref-377)
