@@ -1,0 +1,314 @@
+---
+description: '연결 리스트 개념과 종류(단일, 이중, 원형)에 대해 이해하고 구현까지!'
+date: 2022-07-29 18:08:49
+publish: true
+tags: ['computer-science', 'data-structure']
+title: '연결 리스트와 종류 구현까지!'
+thumbnail: ''
+---
+
+## 연결 리스트
+
+데이터 요소를 순차적으로 저장하는 선형 자료 구조다.
+
+각각의 요소는 `노드(Node)`라고 불리며, 노드는 데이터와 다음 노드를 가리키는 포인터(링크)로 구성된다.
+
+연결 리스트는 배열과 달리 데이터를 연속적인 메모리 위치에 저장하지 않아도 포인터를 통해 참조할 수 있다.
+
+일반적으로 연결 리스트는 머리(head)와 꼬리(tail)로 구성되어 있으며 머리에서 꼬리 방향으로만 순회할 수 있다.
+
+<Space />
+
+## 단일 연결 리스트(Singly Linked List)
+
+각 노드가 다음 노드를 가리키는 포인터만을 가지는 연결 리스트로, 마지막 노드에 다음 값은 `null`을 가리킨다.
+
+```tsx
+export class Node {
+  constructor(value, next = null) {
+    this.value = value
+    this.next = next
+  }
+}
+
+export class SinglyLikedList {
+  constructor() {
+    this.head = null
+    this.size = 0
+  }
+
+  // 맨 앞에 노드 삽입
+  prepend(value) {
+    if (this.head === null) {
+      this.head = new Node(value)
+      this.size++
+      return
+    }
+    this.head = new Node(value, this.head)
+    this.size++
+  }
+
+  // 맨 뒤에 노드 삽입
+  push(value) {
+    if (this.head === null) return this.prepend(value)
+    let current = this.head
+    while (current.next !== null) {
+      current = current.next
+    }
+    current.next = new Node(value)
+    this.size++
+  }
+
+  // value로 노드 삭제
+  delete(value) {
+    let current = this.head
+    while (current.next.value !== value) {
+      current = current.next
+    }
+    current.next = current.next.next
+    this.size--
+  }
+
+  // index로 해당 노드 얻기
+  getNodeAt(index) {
+    if (!this.isOutOfRange(index)) {
+      let current = this.head
+      for (let i = 0; i < index; i++) {
+        current = current.next
+      }
+      return current
+    }
+  }
+
+  // 원하는 index에 노드 삽입
+  insertAt(index, value) {
+    if (!this.isOutOfRange(index)) {
+      if (index === 0) return this.prepend(value)
+
+      const previous = this.getNodeAt(index - 1)
+      const current = previous.next
+      previous.next = new Node(value, current)
+      this.size++
+    }
+  }
+
+  // reverse
+  reverse() {
+    let current = this.head
+    let previous = null
+    let next = null
+    while (current !== null) {
+      next = current.next
+      current.next = previous
+      previous = current
+      current = next
+    }
+    this.head = previous
+  }
+}
+```
+
+<Space />
+
+## 이중 연결 리스트(Doubly Linked List)
+
+각 노드가 이전 노드와 다음 노드를 가리키는 두 개의 포인터를 가지는 연결 리스트로 머리와 꼬리 양방향 접근이 가능하다.
+
+머리와 꼬리를 상수시간으로 접근해 삽입 삭제 연산을 수행할 수 있기 때문에 `큐`를 구현하기 매우 좋은 형태다.
+
+```tsx
+class Node {
+  constructor(value, next = null, previous = null) {
+    this.value = value
+    this.next = next
+    this.previous = previous
+  }
+}
+
+class DoublyLinkedList {
+  constructor() {
+    this.head = null
+    this.tail = null
+    this.size = 0
+  }
+
+  // 노드 맨 앞에 삽입
+  prepend(value) {
+    const node = new Node(value, this.head)
+    if (this.head === null) this.head = node
+    else this.head = this.head.previous = node
+
+    if (this.tail === null) this.tail = node
+    this.size++
+  }
+
+  //노드 맨 뒤에 삽입
+  push(value) {
+    if (this.head === null) {
+      this.prepend(value)
+      return
+    }
+
+    const node = new Node(value)
+    this.tail.next = node
+    node.previous = this.tail
+    this.tail = node
+    this.size++
+  }
+
+  // Value로 노드 값 삭제
+  delete(value) {
+    if (this.head === null) return null
+    // 첫 번째에 해당될 때
+    if (this.head.value === value) {
+      this.head = this.head.next
+      this.head.previous = null
+      this.size--
+      return
+    }
+    // 마지막 번째에 해당 될 때
+    if (this.tail.value === value) {
+      this.tail = this.tail.previous
+      this.tail.next = null
+      this.size--
+      return
+    }
+    // 그 나머지 경우
+    let current = this.head
+    while (current !== null) {
+      if (current.value === value) {
+        current.previous.next = current.next
+        current.next.previous = current.previous
+        break
+      }
+      current = current.next
+    }
+    this.size--
+  }
+
+  // 헤드 노드 삭제하기
+  deleteHead() {
+    if (this.head === null) return null
+
+    const deletedHead = this.head
+    if (this.head) {
+      this.head = this.head.next
+      this.head.previous = null
+    } else {
+      this.head = null
+      this.tail = null
+    }
+    this.size--
+    return deletedHead
+  }
+
+  // 꼬리 노드 삭제
+  deleteTail() {
+    if (this.tail === null) return null
+
+    const deletedTail = this.tail
+    if (this.tail === this.head) {
+      this.head = null
+      this.tail = null
+    }
+
+    if (this.tail) {
+      this.tail = this.tail.previous
+      this.tail.next = null
+    }
+
+    this.size--
+    return deletedTail
+  }
+}
+```
+
+<Space />
+
+## 원형 연결 리스트(Circular Linked List)
+
+일반적인 단일 연결 리스트와 유사하지만 마지막 노드의 다음 포인터가 `null` 아니라 첫 번째 노드를 가리킨다.
+
+이로 인해 원형 형태를 갖게 되며 순환 구조를 형성한다.
+
+```tsx
+class Node {
+  constructor(value, next = null) {
+    this.value = value
+    this.next = next
+  }
+}
+
+class CircleLinkedList {
+  constructor() {
+    this.head = null
+    this.size = 0
+  }
+
+  // 요소의 맨 앞에 노드 삽입
+  prepend(value) {
+    const node = new Node(value)
+    if (this.head === null) {
+      this.head = node
+      node.next = this.head
+    } else {
+      node.next = this.head
+
+      // for 문을 활용한 변경
+      this.head = node
+      let current = this.head
+      for (let i = 0; i < this.size; i++) {
+        current = current.next
+      }
+      current.next = node
+
+      // while로 하는 방법
+      // let current = this.head;
+      // while (this.head.value !== current.next.value) {
+      //   current = current.next;
+      // }
+      // current.next = node;
+      // this.head = node;
+    }
+    this.size++
+  }
+
+  // 요소의 맨 뒤에 노드 삽입
+  push(value) {
+    let current = this.head
+    for (let i = 0; i < this.size - 1; i++) {
+      current = current.next
+    }
+    const node = new Node(value)
+    current.next = node
+    node.next = this.head
+    this.size++
+  }
+
+  // 요소 삭제
+  delete(value) {
+    if (this.head.value === value) {
+      let current = this.head
+      for (let i = 0; i < this.size - 1; i++) {
+        current = current.next
+      }
+      current.next = this.head.next
+      this.head = this.head.next
+    } else {
+      let current = this.head
+      while (current.next.value !== value) {
+        current = current.next
+      }
+      current.next = current.next.next
+    }
+    this.size--
+  }
+}
+```
+
+<Space />
+
+## 참조
+
+[누구나 자료 구조와 알고리즘 - 길벗](https://product.kyobobook.co.kr/detail/S000001834743)  
+[Youtube - Linked Lists for Technical Interviews](https://www.youtube.com/watch?v=Hj_rA0dhr2I)
