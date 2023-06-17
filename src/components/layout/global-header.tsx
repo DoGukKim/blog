@@ -18,10 +18,11 @@ export default function GlobalHeader() {
             className="mr-3 inline-block rounded-lg p-1 transition-all hover:bg-adaptive-gray-200"
           >
             <Image
-              priority
               src={me}
               alt="me"
-              className="h-9 w-9 rounded-full"
+              width={36}
+              height={36}
+              className="rounded-full"
             />
           </Link>
           <GlobalMenu />

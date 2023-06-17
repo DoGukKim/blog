@@ -42,15 +42,23 @@ export default async function PostPage({ params }: PageProps) {
 
   const jsonLd = {
     '@context': 'https://guk.vercel.app/blog',
-    '@type': 'Article',
-    author: 'Guk',
-    title: post.title,
+    '@type': 'BlogPosting',
+    author: {
+      '@type': 'Person',
+      name: 'guk',
+    },
+    editor: 'guk',
+    headline: post.title,
+    alternativeHeadline: post.title,
     description: post.description,
-    url: 'http://www.guk.vercel.app',
+    url: `https://www.guk.vercel.app/blog/${post.slug}`,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': 'https://guk.vercel.app/blog',
+      '@id': `https://www.guk.vercel.app/blog/${post.slug}`,
     },
+    genre: 'tech',
+    publisher: 'guk',
+    keywords: `${post.tags.join(' ')}`,
     datePublished: post.date,
     dateCreated: post.date,
     dateModified: post.date,

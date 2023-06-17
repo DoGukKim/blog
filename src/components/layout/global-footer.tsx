@@ -5,14 +5,20 @@ import me from 'public/me.webp'
 
 export default function GlobalFooter() {
   return (
-    <footer className="container">
+    <footer className="container mt-auto">
       <div className="flex items-center border-t border-adaptive-gray-200 py-6">
         <Link
           href="/blog"
           aria-label="logo"
-          className="mr-1.5 inline-block min-w-max rounded-lg p-1 transition-all hover:bg-adaptive-gray-200"
+          className="mr-1.5 inline-block rounded-lg p-1 transition-all hover:bg-adaptive-gray-200"
         >
-          <Image priority src={me} alt="me" className="h-6 w-6 rounded-full" />
+          <Image
+            src={me}
+            alt="me"
+            width={24}
+            height={24}
+            className="h-6 w-6 rounded-full"
+          />
         </Link>
 
         <p>
