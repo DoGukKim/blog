@@ -25,5 +25,10 @@
     "prefix": "cd",
     "description": "this is current date, format like YYYY-MM-DD",
     "body": "$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE"
+  },
+  "spacing": {
+    "prefix": "sp",
+    "body": "<Space />",
+    "description": "spacing tsx tag"
   }
 }
