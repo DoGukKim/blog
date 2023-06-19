@@ -1,5 +1,6 @@
 import '@/styles/globals.css'
 
+import { type Metadata } from 'next'
 import { fontSans } from '@/lib/fonts'
 
 import TailwindIndicator from '@/components/tailwind-indicator'
@@ -11,7 +12,7 @@ type RootLayoutProps = {
   children: React.ReactNode
 }
 
-export const metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL('https://guk.vercel.app'),
   title: {
     default: '꾹 블로그',
@@ -36,6 +37,13 @@ export const metadata = {
     },
     description: '개발하며 경험, 학습한 내용을 정리하는 공간 입니다.',
   },
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION_KEY,
+  },
+}
+
+{
+  /* <meta name="google-site-verification" content="mnRI8rNIkas1tDQCcTQibrVj43tMpGY-xpYXjSHhcAE" /> */
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
