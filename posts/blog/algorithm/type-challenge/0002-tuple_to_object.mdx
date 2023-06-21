@@ -1,0 +1,47 @@
+---
+description: '타입 챌린지 Tuple to object 문제를 풀이해 보자!'
+date: 2023-03-22 09:36:20
+publish: true
+tags: ['algorithm', 'type-challenge']
+title: '타입 첼린지 - Tuple to object'
+thumbnail: ''
+---
+
+## 풀이
+
+배열(튜플)을 받아, 각 원소의 값을 `key/value`로 갖는 오브젝트 타입을 반환하는 타입을 구현하는 문제다.
+
+첫 풀이에서 아래와 같은 오류가 발생했다.
+
+```tsx
+type TupleToObject<T> = {
+  [key in T[number]]: key
+}
+// Type 'T[number]' is not assignable to type 'string | number | symbol'.(2322)
+```
+
+### 오류 사항
+
+`'T[number]'`에 `'string | number | symbol'`을 할당할 수 없다는 오류다.
+
+이는 `string | number | symbol`만 객체의 키가 될 수 있기 때문에 발생하는 것이다.
+
+이를 해결하기 위해선 제네릭 T를 `string | number | symbol` 타입을 가진 튜플이라는 것을 제한해주어야 한다.
+
+<Space />
+
+## 코드
+
+```tsx
+type TupleToObject<T extends readonly (string | number | symbol)[]> = {
+  [P in T[number]]: P
+}
+```
+
+> `T[number]`의 의미는 T에 원소들을 유니언으로 가져오는 것을 뜻한다.
+
+<Space />
+
+## 참조
+
+[타입 챌린지 Github](https://github.com/type-challenges/type-challenges)

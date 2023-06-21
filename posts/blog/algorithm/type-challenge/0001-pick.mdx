@@ -1,0 +1,58 @@
+---
+description: '타입 챌린지 Pick 문제를 풀이해 보자!'
+date: 2023-03-21 09:36:20
+publish: true
+tags: ['algorithm', 'type-challenge']
+title: '타입 첼린지 - Pick'
+thumbnail: ''
+---
+
+## 풀이
+
+타입스크립트의 `Pick` 유틸리티를 사용하지 않고 동일한 기능을 하는 유형을 생성하는 문제다.
+
+매핑을 활용한 인덱싱으로 문제를 해결하려 했지만, 아래와 같은 오류가 발생했다.
+
+```tsx
+type MyPick<T, K> = {
+  [P in K]: T[P]
+}
+// ❌ Type 'K' is not assignable to type 'string | number | symbol'.
+// ❌ Type 'K' cannot be used to index type 'T'.
+```
+
+### 오류 사항
+
+- 객체의 키는 `'string | number | symbol'` 유형만 사용할 수 있는데,  
+  K는 제네릭일뿐 유형을 제한하지 않았기에 때문에 발생하는 오류다.
+- 위와 같은 이유로 K는 T에 인덱싱이 불가하다는 오류다.
+
+제네릭 K가 T의 키를 상속하고 있다 제한하면 문제를 해결할 수 있다.
+
+> `[P in K]` 의미는 in을 통해 K를 추론한 변수를 P에 할당하는 것이다.
+
+<Space />
+
+## 코드
+
+```tsx
+type MyPick<T, K extends keyof T> = {
+  [P in K]: T[P]
+}
+```
+
+> `K extends keyof T` 의미는 K는 T의 키들을 유니언으로 상속한다는 것을 제한하는 것이다.
+
+```tsx
+type MyPick<T, K extends keyof T> = {
+  [P in keyof T as P extends K ? P : never]: T[P]
+}
+```
+
+> `as`는 매핑을 사용할 때 추론한 변수를 재정의할 수 있게 해준다.
+
+<Space />
+
+## 참조
+
+[타입 챌린지 Github](https://github.com/type-challenges/type-challenges)
