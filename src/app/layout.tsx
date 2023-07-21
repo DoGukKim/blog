@@ -46,7 +46,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="ko" className={fontSans.variable} suppressHydrationWarning>
       <body>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="dark">
           <GlobalHeader />
           {children}
           <GlobalFooter />

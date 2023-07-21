@@ -41,7 +41,7 @@ export default async function PostPage({ params }: PageProps) {
   const date = new Date(post.date).toISOString().split('T')[0]
 
   const jsonLd = {
-    '@context': 'https://guk.vercel.app/blog',
+    '@context': 'https://schema.org/',
     '@type': 'BlogPosting',
     author: {
       '@type': 'Person',
