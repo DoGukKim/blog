@@ -93,6 +93,7 @@ export const replaceKoreanOfTagName = (name: string) => {
     frontend: '프론트 엔드',
     javascript: '자바스크립트',
     typescript: '타입스크립트',
+    seo: 'seo',
   }
 
   return map[name]

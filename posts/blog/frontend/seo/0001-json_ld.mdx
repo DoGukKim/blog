@@ -1,0 +1,110 @@
+---
+description: 'JSON-LD에 대해 간략하게 알아보고 Next.js에 적용해 보자!'
+date: 2023-07-21 17:49:17
+publish: true
+tags: ['frontend', 'seo']
+title: 'JSON-LD 알아보기'
+thumbnail: ''
+---
+
+## JSON-LD
+
+JSON-LD는 `연결 데이터(Linked Data)`를 JSON 형식으로 구조적으로 데이터를 표현하기 위한 하나의 방법이다.
+
+> 연결 데이터(Linked data)는 웹 상에 존재하는 데이터를 URI(Uniform Resource Identifier)로 식별하고,  
+> 각 URI에 링크 정보를 부여함으로써 상호 연결된 웹을 지향하는 모형을 말한다.
+
+데이터 구조는 여러 형태가 있지만 공식적으로 [JSON-LD를 권장](https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data?hl=ko#supported-formats)한다.  
+JSON-LD를 권장하는 이유는 간단하게 HTML Script 태그를 활용해 적용할 수 있는 용이성,  
+널리 보편적으로 사용되는 JSON 특성과 가독성에 때문인 것 같다.
+
+<Space />
+
+## JSON-LD 적용 이점
+
+JSON-LD를 적용함으로써 얻는 이점은, 웹 페이지 컨텐츠가 [Rich Snippets](https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data?hl=ko#search-appearance)로 표시될 수 있다는 것이다.  
+Rich Snippets은 간단하게 검색 시 해당 컨텐츠 구조화 데이터가 스니펫으로 표시된다.  
+하지만 적용한다고 해서 반드시 Rich Snippets이 적용되는 것이 아니고, 적용될 확률이 높아지는 것이라 한다.  
+개인적인 생각으로 아마도 노출 수가 많은 웹 페이지에만 적용되는게 아닐까 생각한다..!🥲  
+간혹 JSON-LD 관련 포스팅을 보면 SEO 최적화에 효과를 미친다고 게시되어 있는데,  
+[공식](https://www.seroundtable.com/google-structured-data-ranking-factor-25510.html)적으로 상단 노출(Ranking Boost)에 대한 효과를 주진 않는다고 한다.
+
+<Space />
+
+## Next.js에 적용해 보기
+
+Next.js App Router를 기준으로, 블로그 포스팅에 JSON-LD를 적용한 코드를 공유한다.  
+사실 [Next.js 공식 문서](https://nextjs.org/docs/app/building-your-application/optimizing/metadata#json-ld)에도 친절하게 잘 정리되어 게시되어 있다.  
+스키마 구성에 대해 하나 하나 설명하면 좋지만 너무 방대하기 때문에, 궁금하다면 [w3c 링크](https://www.w3.org/TR/json-ld11/#introduction)로 확인!
+
+### JSON-LD 선언하기
+
+```tsx
+const jsonLd = {
+  '@context': 'https://schema.org/',
+  '@type': 'BlogPosting',
+  author: {
+    '@type': 'Person',
+    name: 'guk',
+  },
+  editor: 'guk',
+  headline: post.title,
+  alternativeHeadline: post.title,
+  description: post.description,
+  url: `https://www.guk.vercel.app/blog/${post.slug}`,
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': `https://www.guk.vercel.app/blog/${post.slug}`,
+  },
+  genre: 'tech',
+  publisher: 'guk',
+  keywords: `${post.tags.join(' ')}`,
+  datePublished: post.date,
+  dateCreated: post.date,
+  dateModified: post.date,
+}
+```
+
+### 적용하기
+
+선언한 JSON-LD 객체를 `JSON.stringify`로 문자열로 변환하고,  
+ `dangerouslySetInnerHTML`의 `__html`에 입력한다.
+
+```tsx
+return (
+  <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} // this line!
+    />
+    <div className="mx-auto max-w-3xl break-keep pb-12">
+      <p className="mb-3 text-h7">{date}</p>
+      <h1 aria-label="title" className="mb-3 text-h3 font-bold tracking-tight">
+        {post.title}
+      </h1>
+      <p className="mb-8 text-adaptive-gray-600">{post.description}</p>
+
+      <PostBody>{post.content}</PostBody>
+    </div>
+  </>
+)
+```
+
+<Space />
+
+## 후기
+
+사실 현 블로그에는 댓글, 평점 등을 제공할 컨텐츠가 없기 때문에 JSON-LD를 적용해야할 큰 이유는 없다.  
+그래도 추 후 적용할 기회가 생기면 과감하게 적용할 수 있는 경험을 쌓았다고 생각한다.  
+JSON-LD를 적용하고 싶다면 직접 타이핑하는 것 보다, 제너레이터를 통해서 생성하는 것을 추천한다!  
+왜냐하면 잘못된 형식의 값을 적용할 경우가 생기기 때문이다. 이런 사항을 확인하고 싶다면 validate 사이트도 확인해보자.
+
+<Space />
+
+## 참조
+
+[What are Rich Snippets? Complete Beginner's Guide](https://backlinko.com/hub/seo/snippets)  
+[스키마 마크업 테스트 도구 | Google 검색 센터 Google for Developers](https://developers.google.com/search/docs/appearance/structured-data?hl=ko)  
+[링크드 데이터(Linked Data) 기본개념](https://brunch.co.kr/@springboot/131)  
+[JSON-LD Schema Generator For SEO - Hall Analysis](https://hallanalysis.com/json-ld-generator/)  
+[구조화된 데이터 마크업 도우미](https://www.google.com/webmasters/markup-helper/?hl=ko)
